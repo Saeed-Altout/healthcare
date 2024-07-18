@@ -14,7 +14,7 @@ export const OverviewClient = ({ initialData }: { initialData: any[] }) => {
         <AreaGlucose />
       </div>
       <Separator />
-      <h1>Last Sessions</h1>
+      <h1 className="text-xl">Last Sessions</h1>
       <DataTable columns={columns} data={initialData} />
     </>
   );

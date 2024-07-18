@@ -1,4 +1,11 @@
 import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export const Heading = () => {
   return (
@@ -14,9 +21,22 @@ export const Heading = () => {
           from a single place.
         </p>
       </div>
-      <Button className="w-full md:w-fit" variant="outline">
-        Start Your Session
-      </Button>
+      <div className="flex items-center justify-center gap-5 w-full md:w-fit">
+        <Button className="w-full md:w-fit" variant="outline">
+          Start Your Session
+        </Button>
+        <Select>
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder="x1" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="x1">x1</SelectItem>
+            <SelectItem value="x2">x2</SelectItem>
+            <SelectItem value="x3">x3</SelectItem>
+            <SelectItem value="x4">x4</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
     </div>
   );
 };

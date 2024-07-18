@@ -10,8 +10,8 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 export const Navbar = () => {
   return (
-    <header className="sticky top-0 h-16 flex items-center gap-4 border-b bg-background px-4 md:px-6">
-      <nav className="hidden gap-4 md:flex flex-row items-center font-medium z-[1000]">
+    <header className="sticky top-0 h-16 flex items-center gap-4 border-b bg-background px-4 md:px-6 z-[1000]">
+      <nav className="hidden gap-4 md:flex flex-row items-center font-medium">
         <Logo />
         <Nav />
       </nav>
