@@ -6,6 +6,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Plus } from "lucide-react";
 
 export const Heading = () => {
   return (
@@ -23,7 +24,7 @@ export const Heading = () => {
       </div>
       <div className="flex items-center justify-center gap-5 w-full md:w-fit">
         <Button className="w-full md:w-fit" variant="outline">
-          Start Your Session
+          <Plus className="h-4 w-4 mr-2" /> Session
         </Button>
         <Select>
           <SelectTrigger className="w-[180px]">
