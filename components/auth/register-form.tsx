@@ -19,10 +19,12 @@ import { Button } from "@/components/ui/button";
 
 import { registerSchema } from "@/schemas";
 import { WrapperForm } from "./wrapper-form";
+import { register } from "@/actions/register";
+import { useRouter } from "next/navigation";
 
 export const RegisterForm = () => {
   const [isPending, startTransition] = useTransition();
-
+  const router = useRouter();
   const form = useForm<z.infer<typeof registerSchema>>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
@@ -33,7 +35,17 @@ export const RegisterForm = () => {
   });
 
   const onSubmit = (values: z.infer<typeof registerSchema>) => {
-    console.log("register");
+    startTransition(() => {
+      register(values).then((res) => {
+        if (res) {
+          console.log(res.error);
+          console.log(res.success);
+          if (res.success) {
+            router.push("/auth/login");
+          }
+        }
+      });
+    });
   };
 
   return (

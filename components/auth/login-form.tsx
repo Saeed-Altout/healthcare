@@ -19,7 +19,7 @@ import { Button } from "@/components/ui/button";
 import { WrapperForm } from "@/components/auth/wrapper-form";
 
 import { loginSchema } from "@/schemas";
-
+import { login } from "@/actions/login";
 export const LoginForm = () => {
   const [isPending, startTransition] = useTransition();
 
@@ -32,7 +32,16 @@ export const LoginForm = () => {
   });
 
   const onSubmit = (values: z.infer<typeof loginSchema>) => {
-    console.log("login");
+    console.log(values);
+
+    startTransition(() => {
+      login(values).then((res) => {
+        if (res) {
+          console.log(res.success);
+          console.log(res.error);
+        }
+      });
+    });
   };
 
   return (
