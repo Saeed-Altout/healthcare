@@ -10,9 +10,6 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
-import { BackButton } from "@/components/auth/back-button";
-import { HeaderForm } from "@/components/auth/header-form";
-
 import { Logo } from "@/components/logo";
 
 interface WrapperFormProps {
