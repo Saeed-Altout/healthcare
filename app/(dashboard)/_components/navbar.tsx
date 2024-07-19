@@ -5,11 +5,12 @@ import { Logo } from "@/components/logo";
 
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { UserButton } from "@/components/auth/user-button";
 
 export const Navbar = () => {
   return (
     <header className="sticky top-0 h-16 flex items-center justify-between gap-4 border-b bg-background px-4 md:px-6 z-[1000]">
-      <nav className="hidden gap-5 md:flex flex-row items-center font-medium">
+      <nav className=" relative hidden gap-5 md:flex flex-row items-center font-medium ">
         <Logo />
         <Nav />
       </nav>
@@ -27,6 +28,7 @@ export const Navbar = () => {
           </nav>
         </SheetContent>
       </Sheet>
+      <UserButton />
     </header>
   );
 };
