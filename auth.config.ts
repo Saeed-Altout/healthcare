@@ -3,7 +3,7 @@ import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 
 import { loginSchema } from "@/schemas";
-import { db } from "@/lib/db";
+import { getUserByEmail } from "@/data/user";
 
 export default {
   providers: [
@@ -14,22 +14,15 @@ export default {
       async authorize(credentials) {
         const validateFields = loginSchema.safeParse(credentials);
 
-        if (validateFields.success) {
-          const { email, password } = validateFields.data;
+        if (!validateFields.success) return null;
 
-          const user = await db.user.findUnique({
-            where: {
-              email,
-            },
-          });
+        const { email, password } = validateFields.data;
 
-          if (!user || !user.password) return null;
+        const user = await getUserByEmail(email);
+        if (!user || !user.password) return null;
 
-          const passwordMatch = await bcrypt.compare(password, user.password);
-
-          if (!passwordMatch) return null;
-          return user;
-        }
+        const passwordMatch = await bcrypt.compare(password, user.password);
+        if (passwordMatch) return user;
 
         return null;
       },

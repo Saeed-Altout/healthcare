@@ -1,6 +1,7 @@
 "use client";
 
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -17,14 +18,20 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
+import { FormError } from "@/components/auth/form-error";
+import { FormSuccess } from "@/components/auth/form-success";
+import { WrapperForm } from "@/components/auth/wrapper-form";
+
 import { registerSchema } from "@/schemas";
-import { WrapperForm } from "./wrapper-form";
 import { register } from "@/actions/register";
-import { useRouter } from "next/navigation";
 
 export const RegisterForm = () => {
   const [isPending, startTransition] = useTransition();
+  const [error, setError] = useState<string | undefined>("");
+  const [success, setSuccess] = useState<string | undefined>("");
+
   const router = useRouter();
+
   const form = useForm<z.infer<typeof registerSchema>>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
@@ -35,14 +42,18 @@ export const RegisterForm = () => {
   });
 
   const onSubmit = (values: z.infer<typeof registerSchema>) => {
+    setSuccess("");
+    setError("");
+
     startTransition(() => {
-      register(values).then((res) => {
-        if (res) {
-          console.log(res.error);
-          console.log(res.success);
-          if (res.success) {
-            router.push("/auth/login");
-          }
+      register(values).then((data) => {
+        if (data?.success) {
+          setSuccess(data?.success);
+          router.push("/auth/login");
+        }
+
+        if (data?.error) {
+          setError(data?.error);
         }
       });
     });
@@ -50,7 +61,7 @@ export const RegisterForm = () => {
 
   return (
     <WrapperForm
-      headerLabel="Get started with HB3S platform by create a new account"
+      headerLabel="Create an account"
       backButtonLabel="Already have an account?"
       backButtonHref="/auth/login"
     >
@@ -62,7 +73,7 @@ export const RegisterForm = () => {
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="font-medium">Name</FormLabel>
+                  <FormLabel className="font-semibold">Name</FormLabel>
                   <FormControl>
                     <Input
                       disabled={isPending}
@@ -80,7 +91,7 @@ export const RegisterForm = () => {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="font-medium">Email</FormLabel>
+                  <FormLabel className="font-semibold">Email</FormLabel>
                   <FormControl>
                     <Input
                       disabled={isPending}
@@ -98,7 +109,7 @@ export const RegisterForm = () => {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="font-medium">Password</FormLabel>
+                  <FormLabel className="font-semibold">Password</FormLabel>
                   <FormControl>
                     <Input
                       disabled={isPending}
@@ -112,6 +123,8 @@ export const RegisterForm = () => {
               )}
             />
           </div>
+          <FormError message={error} />
+          <FormSuccess message={success} />
           <Button disabled={isPending} type="submit" className="w-full">
             Create an account
           </Button>
