@@ -7,3 +7,14 @@ export const getAllSessions = async () => {
     return [];
   }
 };
+
+export const getLastSession = async () => {
+  try {
+    return await db.sessions.findFirst({
+      orderBy: { id: "desc" },
+      include: { points: true },
+    });
+  } catch {
+    return null;
+  }
+};

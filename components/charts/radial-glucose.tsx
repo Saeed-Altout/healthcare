@@ -19,12 +19,8 @@ import {
 } from "@/components/ui/card";
 
 import { ChartConfig, ChartContainer } from "@/components/ui/chart";
-
-const glucose = 78;
-
-const chartData = [
-  { browser: "safari", glucose: glucose, fill: "var(--color-safari)" },
-];
+import { Session } from "@/app/(dashboard)/(routes)/(overview)/_components/client";
+import { format } from "date-fns";
 
 const chartConfig = {
   glucose: {
@@ -36,12 +32,22 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export const RadialGlucose = () => {
+export const RadialGlucose = ({ data }: { data: Session }) => {
+  const chartData = [
+    {
+      browser: "safari",
+      glucose: +data.glucose || 0,
+      fill: "var(--color-safari)",
+    },
+  ];
+
   return (
     <Card className="flex flex-col col-span-1">
       <CardHeader className="items-center pb-0">
-        <CardTitle>Area Chart - Glucose</CardTitle>
-        <CardDescription>12 - June 2024 | 12:00 PM</CardDescription>
+        <CardTitle>Radial Chart - Glucose</CardTitle>
+        <CardDescription>
+          {format(data?.createdAt, "dd - MMM - YYY")}
+        </CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
         <ChartContainer
@@ -51,7 +57,7 @@ export const RadialGlucose = () => {
           <RadialBarChart
             data={chartData}
             startAngle={0}
-            endAngle={glucose}
+            endAngle={+data.glucose || 0}
             innerRadius={80}
             outerRadius={110}
           >
@@ -79,14 +85,14 @@ export const RadialGlucose = () => {
                           y={viewBox.cy}
                           className="fill-foreground text-4xl font-bold"
                         >
-                          {chartData[0].glucose.toLocaleString()}
+                          {Number(data.glucose).toFixed(2)}
                         </tspan>
                         <tspan
                           x={viewBox.cx}
                           y={(viewBox.cy || 0) + 24}
                           className="fill-muted-foreground"
                         >
-                          Glucose / mg
+                          mg/dl
                         </tspan>
                       </text>
                     );
