@@ -14,6 +14,8 @@ import { RadialGlucose } from "@/components/charts/radial-glucose";
 import { Button } from "@/components/ui/button";
 import { Heading } from "@/components/ui/heading";
 import { getSessionById } from "@/data/session";
+import { date } from "zod";
+import { format } from "date-fns";
 
 export default async function SessionPage({
   params,
@@ -21,18 +23,21 @@ export default async function SessionPage({
   params: { id: string };
 }) {
   const session: any = await getSessionById(+params.id);
-
+  const renderStatus = (level: number) => {
+    if (level > 120) {
+      return "High";
+    } else if (level < 80) {
+      return "Low";
+    } else {
+      return "Normal";
+    }
+  };
   return (
     <>
       <Heading
-        title="Session"
+        title={`Session (${session?.id || 1})`}
         description="All information about this session you will find here."
-      >
-        <Button variant="destructive" size="icon">
-          <Trash className="h-4 w-4" />
-          <span className="sr-only">Trash</span>
-        </Button>
-      </Heading>
+      />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         <p className="font-medium flex items-center justify-start">
           <Hash className="h-4 w-4 mr-2" />
@@ -40,23 +45,19 @@ export default async function SessionPage({
         </p>
         <p className="font-medium flex items-center justify-start">
           <Calendar className="h-4 w-4 mr-2" />
-          Date: <span>14 - jun 2024</span>
-        </p>
-        <p className="font-medium flex items-center justify-start">
-          <Clock className="h-4 w-4 mr-2" />
-          Time: <span>12 : 15 PM</span>
+          Date: <span>{format(session?.createdAt, "dd - MMM - YYY")}</span>
         </p>
         <p className="font-medium flex items-center justify-start">
           <Timer className="h-4 w-4 mr-2" />
-          Duration: <span>1x</span>
+          Duration: <span>{session?.duration || "60"}</span>
         </p>
         <p className="font-medium flex items-center justify-start">
           <BarChart className="h-4 w-4 mr-2" />
-          Glucose: <span>90 mg</span>
+          Glucose: <span>{session?.glucose} mg/dl</span>
         </p>
         <p className="font-medium flex items-center justify-start">
           <Info className="h-4 w-4 mr-2" />
-          Status: <span>Normal</span>
+          Status: <span>{renderStatus(+session?.glucose || 0)}</span>
         </p>
       </div>
       <div className="mt-5 grid gap-4 md:gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">

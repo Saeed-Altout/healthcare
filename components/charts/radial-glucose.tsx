@@ -41,8 +41,6 @@ export const RadialGlucose = ({ data }: { data: Session }) => {
     },
   ];
 
-  console.log(data);
-
   return (
     <Card className="flex flex-col col-span-1">
       <CardHeader className="items-center pb-0">
