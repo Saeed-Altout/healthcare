@@ -1,17 +1,12 @@
 "use client";
 
 import { Plus } from "lucide-react";
-
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
+import { useSessionModal } from "@/hooks/use-session-modal";
 
 export const Heading = () => {
+  const sessionModal = useSessionModal();
+
   return (
     <div className="flex flex-col justify-center items-start gap-y-10 bg-[url('/hero-img.jpg')] h-[450px] bg-top bg-cover rounded-md overflow-hidden p-10 text-center md:text-left">
       <div className="flex flex-col gap-y-1">
@@ -25,27 +20,14 @@ export const Heading = () => {
           from a single place.
         </p>
       </div>
-      <div className="flex items-center justify-center gap-5 w-full md:w-fit">
-        <Button
-          className="w-full md:w-fit"
-          variant="outline"
-          onClick={() => {}}
-        >
-          <Plus className="h-4 w-4 mr-2" />
-          New session
-        </Button>
-        <Select>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="x1 - 1min" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="x1">x1 - 1min</SelectItem>
-            <SelectItem value="x2">x2 - 2min</SelectItem>
-            <SelectItem value="x3">x3 - 3min</SelectItem>
-            <SelectItem value="x4">x4 - 4min</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
+      <Button
+        className="w-full md:w-fit"
+        variant="outline"
+        onClick={() => sessionModal.onOpen()}
+      >
+        <Plus className="h-4 w-4 mr-2" />
+        New session
+      </Button>
     </div>
   );
 };

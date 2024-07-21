@@ -9,7 +9,7 @@ import { UserButton } from "@/components/auth/user-button";
 
 export const Navbar = () => {
   return (
-    <header className="sticky top-0 h-16 flex items-center justify-between gap-4 border-b bg-background px-4 md:px-6 z-[1000]">
+    <header className="sticky top-0 h-16 flex items-center justify-between gap-4 border-b bg-background px-4 md:px-6 z-50">
       <nav className=" relative hidden gap-5 md:flex flex-row items-center font-medium ">
         <Logo />
         <Nav />
