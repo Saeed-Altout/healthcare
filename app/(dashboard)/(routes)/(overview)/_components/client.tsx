@@ -8,8 +8,6 @@ import { Separator } from "@/components/ui/separator";
 import { DataTable } from "@/components/ui/data-table";
 
 export const OverviewClient = ({ initialData }: { initialData: any[] }) => {
-  // formatted data here and passing to chart
-
   return (
     <>
       <Heading />
