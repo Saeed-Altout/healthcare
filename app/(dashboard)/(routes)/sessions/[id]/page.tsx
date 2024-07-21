@@ -13,9 +13,15 @@ import { RadialGlucose } from "@/components/charts/radial-glucose";
 
 import { Button } from "@/components/ui/button";
 import { Heading } from "@/components/ui/heading";
-import { Separator } from "@/components/ui/separator";
+import { getSessionById } from "@/data/session";
 
-export default function SessionPage({ params }: { params: { id: string } }) {
+export default async function SessionPage({
+  params,
+}: {
+  params: { id: string };
+}) {
+  const session: any = await getSessionById(+params.id);
+
   return (
     <>
       <Heading
@@ -54,8 +60,8 @@ export default function SessionPage({ params }: { params: { id: string } }) {
         </p>
       </div>
       <div className="mt-5 grid gap-4 md:gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        <RadialGlucose />
-        <AreaGlucose />
+        <RadialGlucose data={session} />
+        <AreaGlucose data={session} />
       </div>
     </>
   );

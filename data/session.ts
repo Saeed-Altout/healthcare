@@ -18,3 +18,14 @@ export const getLastSession = async () => {
     return null;
   }
 };
+
+export const getSessionById = async (id: number) => {
+  try {
+    return await db.sessions.findUnique({
+      include: { points: true },
+      where: { id },
+    });
+  } catch {
+    return null;
+  }
+};

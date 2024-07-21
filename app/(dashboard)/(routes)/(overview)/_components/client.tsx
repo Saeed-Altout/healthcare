@@ -24,7 +24,7 @@ export const OverviewClient = ({
       <Heading />
       <div className="grid gap-4 md:gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         <RadialGlucose data={currentSession} />
-        <AreaGlucose />
+        <AreaGlucose data={currentSession} />
       </div>
       <Separator />
       <h1 className="text-xl font-medium">Last Sessions</h1>

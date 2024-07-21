@@ -18,69 +18,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-
-const chartData = [
-  { id: 1, glucose: 90 },
-  { id: 2, glucose: 85 },
-  { id: 3, glucose: 88 },
-  { id: 4, glucose: 92 },
-  { id: 5, glucose: 89 },
-  { id: 6, glucose: 91 },
-  { id: 7, glucose: 87 },
-  { id: 8, glucose: 95 },
-  { id: 9, glucose: 80 },
-  { id: 10, glucose: 86 },
-  { id: 11, glucose: 91 },
-  { id: 12, glucose: 83 },
-  { id: 13, glucose: 88 },
-  { id: 14, glucose: 90 },
-  { id: 15, glucose: 85 },
-  { id: 16, glucose: 92 },
-  { id: 17, glucose: 89 },
-  { id: 18, glucose: 94 },
-  { id: 19, glucose: 82 },
-  { id: 20, glucose: 87 },
-  { id: 21, glucose: 93 },
-  { id: 22, glucose: 84 },
-  { id: 23, glucose: 88 },
-  { id: 24, glucose: 91 },
-  { id: 25, glucose: 86 },
-  { id: 26, glucose: 89 },
-  { id: 27, glucose: 90 },
-  { id: 28, glucose: 92 },
-  { id: 29, glucose: 85 },
-  { id: 30, glucose: 87 },
-  { id: 31, glucose: 93 },
-  { id: 32, glucose: 88 },
-  { id: 33, glucose: 90 },
-  { id: 34, glucose: 91 },
-  { id: 35, glucose: 84 },
-  { id: 36, glucose: 87 },
-  { id: 37, glucose: 92 },
-  { id: 38, glucose: 89 },
-  { id: 39, glucose: 85 },
-  { id: 40, glucose: 91 },
-  { id: 41, glucose: 88 },
-  { id: 42, glucose: 86 },
-  { id: 43, glucose: 90 },
-  { id: 44, glucose: 93 },
-  { id: 45, glucose: 87 },
-  { id: 46, glucose: 91 },
-  { id: 47, glucose: 84 },
-  { id: 48, glucose: 89 },
-  { id: 49, glucose: 92 },
-  { id: 50, glucose: 86 },
-  { id: 51, glucose: 90 },
-  { id: 52, glucose: 88 },
-  { id: 53, glucose: 91 },
-  { id: 54, glucose: 85 },
-  { id: 55, glucose: 93 },
-  { id: 56, glucose: 87 },
-  { id: 57, glucose: 92 },
-  { id: 58, glucose: 90 },
-  { id: 59, glucose: 88 },
-  { id: 60, glucose: 91 },
-];
+import { Session } from "@/app/(dashboard)/(routes)/(overview)/_components/client";
 
 const chartConfig = {
   glucose: {
@@ -89,7 +27,12 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export function AreaGlucose() {
+export function AreaGlucose({ data }: { data: Session }) {
+  const chartData = data.points.map((point, index) => ({
+    id: index + 1,
+    value: point?.value,
+  }));
+
   return (
     <Card className="col-span-1 md:col-span-2 lg:col-span-3">
       <CardHeader className="flex items-center gap-2 space-y-0 border-b py-5 sm:flex-row">
@@ -137,7 +80,7 @@ export function AreaGlucose() {
               }
             />
             <Area
-              dataKey="glucose"
+              dataKey="value"
               type="natural"
               fill="url(#fillGlucose)"
               stroke={chartConfig.glucose.color}

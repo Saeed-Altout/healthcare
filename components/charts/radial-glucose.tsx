@@ -36,10 +36,12 @@ export const RadialGlucose = ({ data }: { data: Session }) => {
   const chartData = [
     {
       browser: "safari",
-      glucose: +data.glucose || 0,
+      glucose: +data?.glucose || 0,
       fill: "var(--color-safari)",
     },
   ];
+
+  console.log(data);
 
   return (
     <Card className="flex flex-col col-span-1">
