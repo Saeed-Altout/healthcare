@@ -1,5 +1,8 @@
+import { getAllSessions } from "@/data/session";
 import { SessionsClient } from "./_components/client";
 
-export default function SessionsPage() {
-  return <SessionsClient initialData={[]} />;
+export default async function SessionsPage() {
+  const sessions = await getAllSessions();
+
+  return <SessionsClient initialData={sessions} />;
 }

@@ -2,29 +2,23 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { RowActions } from "./row-actions";
+import { Sessions } from "@prisma/client";
+import { format } from "date-fns";
+import { cn } from "@/lib/utils";
 
-export type Session = {
-  id: string;
-  sequence: string;
-  date: string;
-  time: string;
-  duration: "1x" | "2x" | "3x" | "4x";
-  status: "High" | "Low" | "Normal" | "Unknown";
-  glucose: string;
-};
-
-export const columns: ColumnDef<Session>[] = [
+export const columns: ColumnDef<Sessions>[] = [
   {
-    accessorKey: "sequence",
+    accessorKey: "id",
     header: "ID",
   },
   {
-    accessorKey: "date",
+    accessorKey: "createdAt",
     header: "Date",
-  },
-  {
-    accessorKey: "time",
-    header: "Time",
+    cell: ({ row }) => (
+      <p className="text-nowrap">
+        {format(row.original.createdAt, "dd - MMM - YYY")}
+      </p>
+    ),
   },
   {
     accessorKey: "duration",
@@ -33,10 +27,37 @@ export const columns: ColumnDef<Session>[] = [
   {
     accessorKey: "glucose",
     header: "Glucose",
+    cell: ({ row }) => (
+      <p className="text-nowrap">{Number(row.original.glucose).toFixed(2)}</p>
+    ),
   },
   {
-    accessorKey: "status",
+    accessorKey: "glucose",
     header: "Status",
+    cell: ({ row }) => {
+      const level = +row.original.glucose;
+      const renderStatus = (level: number) => {
+        if (level > 120) {
+          return "High";
+        } else if (level < 80) {
+          return "Low";
+        } else {
+          return "Normal";
+        }
+      };
+
+      return (
+        <p
+          className={cn(
+            level > 120 && "text-red-400",
+            level < 80 && "text-gray-400",
+            "text-emerald-400"
+          )}
+        >
+          {renderStatus(level)}
+        </p>
+      );
+    },
   },
 
   {
