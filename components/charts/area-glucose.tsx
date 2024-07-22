@@ -18,7 +18,6 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import { Session } from "@/app/(dashboard)/(routes)/(overview)/_components/client";
 
 const chartConfig = {
   glucose: {
@@ -27,8 +26,8 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export function AreaGlucose({ data }: { data: Session }) {
-  const chartData = data.points.map((point, index) => ({
+export function AreaGlucose({ data }: { data: any }) {
+  const chartData = data.points.map((point: { value: any }, index: number) => ({
     id: index + 1,
     value: point?.value,
   }));
