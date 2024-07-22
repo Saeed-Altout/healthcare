@@ -8,16 +8,12 @@ import { Separator } from "@/components/ui/separator";
 import { DataTable } from "@/components/ui/data-table";
 import { Sessions } from "@prisma/client";
 
-export interface Session extends Sessions {
-  points: { id: any; value: any }[];
-}
-
 export const OverviewClient = ({
   initialData,
   currentSession,
 }: {
   initialData: Sessions[];
-  currentSession: Session;
+  currentSession: Sessions;
 }) => {
   return (
     <>
