@@ -8,13 +8,8 @@ import { Heading } from "@/components/ui/heading";
 import { Separator } from "@/components/ui/separator";
 import { DataTable } from "@/components/ui/data-table";
 import { useSessionModal } from "@/hooks/use-session-modal";
-import { Sessions } from "@prisma/client";
 
-export const SessionsClient = ({
-  initialData,
-}: {
-  initialData: Sessions[];
-}) => {
+export const SessionsClient = ({ initialData }: { initialData: any[] }) => {
   const sessionModal = useSessionModal();
   return (
     <>

@@ -6,14 +6,13 @@ import { AreaGlucose } from "@/components/charts/area-glucose";
 
 import { Separator } from "@/components/ui/separator";
 import { DataTable } from "@/components/ui/data-table";
-import { Sessions } from "@prisma/client";
 
 export const OverviewClient = ({
   initialData,
   currentSession,
 }: {
-  initialData: Sessions[];
-  currentSession: Sessions;
+  initialData: any[];
+  currentSession: any;
 }) => {
   return (
     <>

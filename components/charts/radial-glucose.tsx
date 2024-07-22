@@ -20,7 +20,6 @@ import {
 
 import { ChartConfig, ChartContainer } from "@/components/ui/chart";
 import { format } from "date-fns";
-import { Sessions } from "@prisma/client";
 
 const chartConfig = {
   glucose: {
@@ -32,7 +31,7 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export const RadialGlucose = ({ data }: { data: Sessions }) => {
+export const RadialGlucose = ({ data }: { data: any }) => {
   const chartData = [
     {
       browser: "safari",
