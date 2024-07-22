@@ -3,6 +3,7 @@ import {
   Calendar,
   Clock,
   Hash,
+  Hourglass,
   Info,
   Timer,
   Trash,
@@ -49,7 +50,22 @@ export default async function SessionPage({
         </p>
         <p className="font-medium flex items-center justify-start">
           <Timer className="h-4 w-4 mr-2" />
-          Duration: <span>{session?.duration || "60"}</span>
+          Time: <span> {format(session?.createdAt, "hh:mm a")}</span>
+        </p>
+        <p className="font-medium flex items-center justify-start">
+          <Hourglass className="h-4 w-4 mr-2" />
+          Duration:
+          <span>
+            {+session?.duration == 60
+              ? "1x"
+              : +session?.duration == 120
+              ? "2x"
+              : +session?.duration == 180
+              ? "3x"
+              : +session?.duration == 240
+              ? "4x"
+              : "unknown"}
+          </span>
         </p>
         <p className="font-medium flex items-center justify-start">
           <BarChart className="h-4 w-4 mr-2" />

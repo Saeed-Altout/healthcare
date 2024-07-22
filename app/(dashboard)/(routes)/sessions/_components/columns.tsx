@@ -21,8 +21,32 @@ export const columns: ColumnDef<Sessions>[] = [
     ),
   },
   {
+    accessorKey: "createdAt",
+    header: "Time",
+    cell: ({ row }) => {
+      return (
+        <p className="text-nowrap">
+          {format(row.original.createdAt, "hh:mm a")}
+        </p>
+      );
+    },
+  },
+  {
     accessorKey: "duration",
     header: "Duration",
+    cell: ({ row }) => (
+      <p className="text-nowrap">
+        {+row.original.duration == 60
+          ? "1x"
+          : +row.original.duration == 120
+          ? "2x"
+          : +row.original.duration == 180
+          ? "3x"
+          : +row.original.duration == 240
+          ? "4x"
+          : "unknown"}
+      </p>
+    ),
   },
   {
     accessorKey: "glucose",
