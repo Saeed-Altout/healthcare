@@ -2,9 +2,15 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { RowActions } from "./row-actions";
-import { Sessions } from "@prisma/client";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
+interface Sessions {
+  id: number;
+  glucose: string;
+  duration: string;
+  createdAt: Date;
+  stopTime: Date | null;
+}
 
 export const columns: ColumnDef<Sessions>[] = [
   {

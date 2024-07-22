@@ -1,6 +1,5 @@
 "use client";
 
-import { Sessions } from "@prisma/client";
 import { useRouter } from "next/navigation";
 
 import { Info, MoreHorizontal } from "lucide-react";
@@ -14,7 +13,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 
-export const RowActions = ({ data }: { data: Sessions }) => {
+export const RowActions = ({ data }: { data: any }) => {
   const router = useRouter();
 
   return (

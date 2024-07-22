@@ -1,21 +1,10 @@
-import {
-  BarChart,
-  Calendar,
-  Clock,
-  Hash,
-  Hourglass,
-  Info,
-  Timer,
-  Trash,
-} from "lucide-react";
+import { BarChart, Calendar, Hash, Hourglass, Info, Timer } from "lucide-react";
 
 import { AreaGlucose } from "@/components/charts/area-glucose";
 import { RadialGlucose } from "@/components/charts/radial-glucose";
 
-import { Button } from "@/components/ui/button";
 import { Heading } from "@/components/ui/heading";
 import { getSessionById } from "@/data/session";
-import { date } from "zod";
 import { format } from "date-fns";
 
 export default async function SessionPage({
